@@ -14,6 +14,11 @@ game.preload('sounds/start.mp3');
 game.preload('images/finger.png');
 game.preload('images/namiheihead.png');
 game.preload('images/hair.png');
+game.preload('sounds/ok.mp3');
+game.preload('sounds/miss.mp3');
+game.preload('sounds/unplug.mp3');
+
+
 
 //ゲームスタート
 game.start(); // start your game!
@@ -77,7 +82,9 @@ function startTitleScene() {
 
 //ゲームシーン
 function startGameScene(tap) {
-    var tapCount = 0;
+    //得点
+    var count = 0;
+
     //シーン作成
     var gameScene = new Scene();
     game.replaceScene(gameScene);
@@ -128,37 +135,82 @@ function startGameScene(tap) {
     //タッチイベントで髪の毛を伸び縮み
     var beforeY = 0;
     var afterY = 0;
+    var nuitaFlg = false;
+    var playingFlg = false;
     gameScene.on('touchstart', function (e) {
+        hair.tl.clear();
+        hair.tl.scaleTo(1, 1, 0);
         finger.y = defaultPosY;
         beforeY = e.y;
         finger.tl.show();
+        playingFlg = false;
     });
     gameScene.on('touchmove', function (e) {
         afterY = e.y;
-        console.log(finger.y);
-        finger.y = defaultPosY - (beforeY - afterY);
+        var scale = 1;
 
+        //抜ける前
+        if (nuitaFlg == false) {
+            scale = ((hair.height + (beforeY - afterY)) / hairHeight);
+            if (scale < 0.6) {
+                scale = 0.6;
+                nuitaFlg = false;
+            } else {
+                if (scale > 3.5) {
+                    nuitaFlg = true;
+                } else {
+                    nuitaFlg = false;
+                }
+                finger.y = defaultPosY - (beforeY - afterY);
+            }
+        } else {
+            //抜けた後
+            console.log("抜いた");
+            finger.y = defaultPosY - (beforeY - afterY);
+            hair.y = finger.y + finger.height - hair.height;
 
-        var scale = ((hair.height + (beforeY - afterY)) / hairHeight);
-        console.log(scale);
-        if (scale < 0.6) {
-            scale = 0.6;
+            if (playingFlg == false) {
+                count += 1;
+                label.text = count + "本抜き";
+
+                playingFlg = true;
+                var sound = game.assets['sounds/miss.mp3'].clone();
+                sound.play();
+            }
+
         }
+        console.log(nuitaFlg);
 
         hair.tl.scaleTo(1, scale, 0);
     });
+
     gameScene.on('touchend', function (e) {
-        finger.tl.hide();
-        hair.tl.scaleTo(1, 1, 4);
-        hair.tl.scaleTo(1, 0.7, 4);
-        hair.tl.scaleTo(1, 1, 4);
-        hair.tl.scaleTo(1, 0.7, 4);
-        hair.tl.scaleTo(1, 1, 4);
-        hair.tl.scaleTo(1, 0.7, 4);
-        hair.tl.scaleTo(1, 1, 4);
+        if (nuitaFlg == false) {
+            //抜けなかった
+            var sound = game.assets['sounds/unplug.mp3'].clone();
+            sound.play();
+            finger.tl.hide();
+            hair.x = (gameScene.width - hair.width) / 2;
+            hair.y = 270;
+            hair.tl.scaleTo(1, 1, 4);
+            hair.tl.scaleTo(1, 0.7, 4);
+            hair.tl.scaleTo(1, 1, 4);
+            hair.tl.scaleTo(1, 0.7, 4);
+            hair.tl.scaleTo(1, 1, 4);
+            hair.tl.scaleTo(1, 0.7, 4);
+            hair.tl.scaleTo(1, 1, 4);
+
+        } else {
+            //抜けた
+            console.log("抜けた");
+            hair.tl.clear();
+            hair.x = (gameScene.width - hair.width) / 2;
+            hair.y = 270;
+            hair.tl.scaleTo(1, 0, 1);
+            hair.tl.scaleTo(1, 1, 10);
+        }
+        nuitaFlg = false;
     });
-
-
 }
 
 function breakWaterMelon(gameScene) {
