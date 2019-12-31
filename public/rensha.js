@@ -5,9 +5,12 @@ var game = new Core(640, 640);
 //FPS
 game.fps = 60;
 //背景色
-game.rootScene.backgroundColor = "skyblue";
+game.rootScene.backgroundColor = "#83F1A8";
 //アセットプリロード
 game.preload('images/title.png');
+game.preload('images/startbutton.png');
+game.preload('images/rankbutton.png');
+game.preload('sounds/start.mp3');
 
 //ゲームスタート
 game.start(); // start your game!
@@ -22,42 +25,51 @@ function startTitleScene() {
     var title = new Sprite(614, 135);
     title.image = game.assets["images/title.png"];
     title.x = (game.rootScene.width - title.width) / 2;
-    title.y = (game.rootScene.height - title.height) / 2;
+    title.y = 100;
     game.rootScene.addChild(title);
 
-
-    var button_master = new Sprite(600, 100);
-    button_master.image = game.assets["images/button_master.png"];
-    button_master.x = 20;
-    button_master.y = 300;
-    button_master.on('touchstart', function (e) {
-        var sound = game.assets['se/start.mp3'].clone();
+    var start = new Sprite(294, 90);
+    start.image = game.assets["images/startbutton.png"];
+    start.x = (game.rootScene.width - start.width) / 2;
+    start.y = (title.y + title.height) + 50;
+    start.tl.scaleTo(0.8, 0);
+    game.rootScene.addChild(start);
+    start.on('touchstart', function (e) {
+        var sound = game.assets['sounds/start.mp3'].clone();
         sound.play();
-        this.tl.scaleTo(0.95, 0.95, 3);
-        this.tl.scaleTo(1, 1, 3);
+        this.tl.scaleTo(0.9, 0.9, 3);
+        this.tl.delay(8);
         this.tl.then(function () {
             //シーン遷移
             startGameScene(16);
         });
     });
-    game.rootScene.addChild(button_master);
 
-    var button_beginner = new Sprite(600, 100);
-    button_beginner.image = game.assets["images/button_beginner.png"];
-    button_beginner.x = 20;
-    button_beginner.y = 420;
-    button_beginner.on('touchstart', function (e) {
-        var sound = game.assets['se/start.mp3'].clone();
+    var ranking = new Sprite(428, 105);
+    ranking.image = game.assets["images/rankbutton.png"];
+    ranking.x = (game.rootScene.width - ranking.width) / 2;
+    ranking.y = (start.y + start.height) + 20;
+    ranking.tl.scaleTo(0.6, 0);
+    game.rootScene.addChild(ranking);
+    ranking.on('touchstart', function (e) {
+        var sound = game.assets['sounds/start.mp3'].clone();
         sound.play();
-
-        this.tl.scaleTo(0.95, 0.95, 3);
-        this.tl.scaleTo(1, 1, 3);
-        this.tl.then(function () {
-            //シーン遷移
-            startGameScene(8);
-        });
+        this.tl.scaleTo(0.7, 0.7, 3);
+        this.tl.delay(8);
     });
-    game.rootScene.addChild(button_beginner);
+
+
+    //インジケーターのラベル
+    var copyright = new Label();
+    copyright.width = 200;
+    copyright.textAlign = "center";
+    copyright.color = "#fff";
+    copyright.text = "UDONKONET";
+    copyright.font = "20px 'impact'";
+    copyright.x = (game.rootScene.width - copyright.width) / 2;
+    copyright.y = (game.rootScene.height - 30);
+    game.rootScene.addChild(copyright);
+
 }
 
 //ゲームシーン
