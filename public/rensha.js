@@ -90,19 +90,6 @@ function startGameScene(tap) {
     game.replaceScene(gameScene);
     gameScene.backgroundColor = "skyblue";
 
-
-    //インジケーターのラベル
-    var label = new Label();
-    label.width = 600;
-    label.height = 40;
-    label.textAlign = "right";
-    label.color = "#444444";
-    label.text = "0本抜き";
-    label.font = "40px 'Kosugi Maru'";
-    label.x = 20;
-    label.y = 20;
-    gameScene.addChild(label);
-
     //ハゲ親父
     var oyaji = new Sprite(640, 1136);
     oyaji.image = game.assets["images/namiheihead.png"];
@@ -131,6 +118,17 @@ function startGameScene(tap) {
     finger.tl.hide();
     gameScene.addChild(finger);
 
+    //インジケーターのラベル
+    var label = new Label();
+    label.width = 600;
+    label.height = 40;
+    label.textAlign = "right";
+    label.color = "#444444";
+    label.text = "0本抜き";
+    label.font = "40px 'Kosugi Maru'";
+    label.x = 20;
+    label.y = 20;
+    gameScene.addChild(label);
 
     //タッチイベントで髪の毛を伸び縮み
     var beforeY = 0;
@@ -185,11 +183,11 @@ function startGameScene(tap) {
     });
 
     gameScene.on('touchend', function (e) {
+        finger.tl.hide();
         if (nuitaFlg == false) {
             //抜けなかった
             var sound = game.assets['sounds/unplug.mp3'].clone();
             sound.play();
-            finger.tl.hide();
             hair.x = (gameScene.width - hair.width) / 2;
             hair.y = 270;
             hair.tl.scaleTo(1, 1, 4);
