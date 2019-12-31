@@ -11,6 +11,9 @@ game.preload('images/title.png');
 game.preload('images/startbutton.png');
 game.preload('images/rankbutton.png');
 game.preload('sounds/start.mp3');
+game.preload('images/finger.png');
+game.preload('images/namiheihead.png');
+game.preload('images/hair.png');
 
 //ゲームスタート
 game.start(); // start your game!
@@ -56,8 +59,8 @@ function startTitleScene() {
         sound.play();
         this.tl.scaleTo(0.7, 0.7, 3);
         this.tl.delay(8);
+        alert("工事中");
     });
-
 
     //インジケーターのラベル
     var copyright = new Label();
@@ -77,97 +80,83 @@ function startGameScene(tap) {
     var tapCount = 0;
     //シーン作成
     var gameScene = new Scene();
-    gameScene.backgroundColor = "white";
-    gameScene.on('touchstart', function (e) {
-        var sound = game.assets['se/tap.mp3'].clone();
-        sound.play();
-
-        taptext.remove();
-
-        tapCount++;
-        label.text = tapCount + "tap/sec";
-        indicator.width = (indicator_back.width / tap) * tapCount;
-        console.log(indicator.width);
-        if (indicator.width == indicator_back.width) {
-            gameScene.clearEventListener('touchstart');
-            gameScene.clearEventListener('touchend');
-            gameScene.tl.clear();
-            cutin(gameScene, meijin, item);
-        }
-        meijin.tl.moveBy(0, 3, 1);
-    });
-    gameScene.on('touchend', function (e) {
-        meijin.tl.moveBy(0, -3, 1);
-    });
-    gameScene.tl.delay(60);
-    gameScene.tl.then(function () {
-        tapCount = 0;
-        indicator.width = (indicator_back.width / tap) * tapCount;
-        label.text = tapCount + "tap/sec";
-    });
-    gameScene.tl.loop();
-    //ワールド
-    var world = new PhysicsWorld(0, 500);
-    gameScene.onenterframe = function () {
-        world.step(game.fps);
-    }
     game.replaceScene(gameScene);
-
-
-    //インジケーター
-    var indicator_panel = new Sprite(600, 40);
-    indicator_panel.backgroundColor = "#444444";
-    indicator_panel.borderStyle = "solid";
-    indicator_panel.borderColor = "white";
-    indicator_panel.x = 20;
-    indicator_panel.y = 20;
-    gameScene.addChild(indicator_panel);
-
-    var indicator_back = new Sprite(596, 36);
-    indicator_back.backgroundColor = "#ffffff";
-    indicator_back.x = 22;
-    indicator_back.y = 22;
-    gameScene.addChild(indicator_back);
-
-    var indicator = new Sprite(596, 36);
-    indicator.backgroundColor = "#999999";
-    indicator.x = 22;
-    indicator.y = 22;
-    gameScene.addChild(indicator);
+    gameScene.backgroundColor = "skyblue";
 
 
     //インジケーターのラベル
     var label = new Label();
-    label.width = 110;
+    label.width = 600;
+    label.height = 40;
     label.textAlign = "right";
     label.color = "#444444";
-    label.text = "0tap/sec";
-    label.font = "20px osaka";
+    label.text = "0本抜き";
+    label.font = "40px 'Kosugi Maru'";
     label.x = 20;
-    label.y = 30;
+    label.y = 20;
     gameScene.addChild(label);
 
-    //プレイヤー
-    var meijin = new Sprite(431, 531);
-    meijin.image = game.assets["images/meijin.png"];
-    meijin.x = 100;
-    meijin.y = 60;
-    gameScene.addChild(meijin);
+    //ハゲ親父
+    var oyaji = new Sprite(640, 1136);
+    oyaji.image = game.assets["images/namiheihead.png"];
+    oyaji.x = 0;
+    oyaji.y = -140;
+    oyaji.tl.scaleTo(0.5, 0);
+    gameScene.addChild(oyaji);
 
-    //アイテム
-    var item = new Sprite(234, 232);
-    item.image = game.assets["images/watermelon.png"];
-    item.x = 283;
-    item.y = 393;
-    gameScene.addChild(item);
+    //髪の毛
+    var hair = new Sprite(25, 80);
+    hair.image = game.assets["images/hair.png"];
+    hair.x = (gameScene.width - hair.width) / 2;
+    hair.y = 270;
+    var hairHeight = hair.height
+    hair.originY = hairHeight;
+    gameScene.addChild(hair);
 
-    //tap!!
-    var taptext = new Sprite(640, 250);
-    taptext.image = game.assets["images/tapframe.png"];
-    taptext.x = 0;
-    taptext.y = 300;
-    taptext.frame = [1, 1, 1, 1, 1, 0, 0, 0, 0, 0];
-    gameScene.addChild(taptext);
+    //指
+    var defaultPosY = 0;
+    var defaultPosX = 15;
+    var finger = new Sprite(612, 350);
+    finger.image = game.assets["images/finger.png"];
+    finger.x = defaultPosX;
+    finger.y = defaultPosY;
+    finger.tl.scaleTo(0.7, 0);
+    finger.tl.hide();
+    gameScene.addChild(finger);
+
+
+    //タッチイベントで髪の毛を伸び縮み
+    var beforeY = 0;
+    var afterY = 0;
+    gameScene.on('touchstart', function (e) {
+        finger.y = defaultPosY;
+        beforeY = e.y;
+        finger.tl.show();
+    });
+    gameScene.on('touchmove', function (e) {
+        afterY = e.y;
+        console.log(finger.y);
+        finger.y = defaultPosY - (beforeY - afterY);
+
+
+        var scale = ((hair.height + (beforeY - afterY)) / hairHeight);
+        console.log(scale);
+        if (scale < 0.6) {
+            scale = 0.6;
+        }
+
+        hair.tl.scaleTo(1, scale, 0);
+    });
+    gameScene.on('touchend', function (e) {
+        finger.tl.hide();
+        hair.tl.scaleTo(1, 1, 4);
+        hair.tl.scaleTo(1, 0.7, 4);
+        hair.tl.scaleTo(1, 1, 4);
+        hair.tl.scaleTo(1, 0.7, 4);
+        hair.tl.scaleTo(1, 1, 4);
+        hair.tl.scaleTo(1, 0.7, 4);
+        hair.tl.scaleTo(1, 1, 4);
+    });
 
 
 }
