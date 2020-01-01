@@ -2,6 +2,8 @@
 <html>
 
 <head>
+    <title>ハゲ親父断髪式</title>
+
     <!-- android -->
     <meta name="mobile-web-app-capable" content="yes">
 
@@ -15,25 +17,36 @@
     <meta property="og:site_name" content="ハゲ親父断髪式" />
     <meta property="og:type" content="website" />
     <meta property="og:description" content="あの最後の1本をひっこぬけ！" />
-    <meta property="og:url" content="https://www.udonko.net/lasthair/index.html" />
+    <meta property="og:url" content="https://hair.udonko.net/index.html" />
     <meta property="og:image" content="https://www.udonko.net/rensha/images/ogp-rensha.png" />
 
+    <!--Twitter Card-->
     <meta name="twitter:card" content="player">
     <meta name="twitter:title" content="ハゲ親父断髪式">
-    <meta name="twitter:player" content="https://www.udonko.net/rensha/game.html">
+    <meta name="twitter:player" content="https://hair.udonko.net/index.html">
     <meta name="twitter:player:height" content="360">
     <meta name="twitter:player:width" content="360">
     <meta name="twitter:image" content="https://www.udonko.net/rensha/images/ogp-rensha.png">
+
+
+    <!--Adsense AMP-->
+    <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
 
 
     <style>
         body {
             margin: 0;
             padding: 0;
+            text-align: center;
         }
 
         #frame {
             border: none;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 0;
+            margin-bottom: 0;
         }
     </style>
     <script>
@@ -42,7 +55,7 @@
             var h = window.innerHeight;
             var size = 0;
             if (w > h) {
-                size = h;
+                size = h - 220;
             } else {
                 size = w;
             }
@@ -55,15 +68,19 @@
 </head>
 
 <body>
-
-    <iframe src="game.html" id="frame"></iframe>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <!-- THE RENSHA -->
-    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3324877759270339" data-ad-slot="5062538071"
-        data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script async src=" https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"> </script>
+    <!-- ハゲ親父断髪式WEB-TOP -->
+    <ins class="adsbygoogle" style="display:inline-block;width:640px;height:100px"
+        data-ad-client="ca-pub-3324877759270339" data-ad-slot="3671704788"></ins>
     <script>
         (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
+    <iframe src="game.html" id="frame"></iframe>
+    <!-- ハゲ親父断髪式WEB-Bottom -->
+    <amp-ad width="100vw" height="320" type="adsense" data-ad-client="ca-pub-3324877759270339" data-ad-slot="3759975327"
+        data-auto-format="rspv" data-full-width="">
+        <div overflow=""></div>
+    </amp-ad>
 </body>
 
 </html>
