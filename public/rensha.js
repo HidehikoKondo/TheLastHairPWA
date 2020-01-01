@@ -14,6 +14,8 @@ game.preload('sounds/start.mp3');
 game.preload('images/finger.png');
 game.preload('images/namiheihead.png');
 game.preload('images/hair.png');
+game.preload('images/hairtwin.png');
+game.preload('images/umiheicombo.png');
 game.preload('sounds/ok.mp3');
 game.preload('sounds/miss.mp3');
 game.preload('sounds/unplug.mp3');
@@ -84,6 +86,7 @@ function startTitleScene() {
 function startGameScene(tap) {
     //得点
     var count = 0;
+    var combo = 1;
 
     //シーン作成
     var gameScene = new Scene();
@@ -168,7 +171,12 @@ function startGameScene(tap) {
             hair.y = finger.y + finger.height - hair.height;
 
             if (playingFlg == false) {
-                count += 1;
+                if (combo == 0) {
+                    count *= 2;
+                    comboAnim(gameScene);
+                } else {
+                    count += 1;
+                }
                 label.text = count + "本抜き";
 
                 playingFlg = true;
@@ -177,8 +185,6 @@ function startGameScene(tap) {
             }
 
         }
-        console.log(nuitaFlg);
-
         hair.tl.scaleTo(1, scale, 0);
     });
 
@@ -200,12 +206,25 @@ function startGameScene(tap) {
 
         } else {
             //抜けた
-            console.log("抜けた");
-            hair.tl.clear();
-            hair.x = (gameScene.width - hair.width) / 2;
-            hair.y = 270;
-            hair.tl.scaleTo(1, 0, 1);
-            hair.tl.scaleTo(1, 1, 10);
+            combo = getRandom(0, 1);
+            if (combo == 0) {
+                //ツインヘアー
+                hair.tl.clear();
+                hair.image = game.assets["images/hairtwin.png"];
+                hair.x = (gameScene.width - hair.width) / 2;
+                hair.y = 270;
+                hair.tl.scaleTo(1, 0, 1);
+                hair.tl.scaleTo(1, 1, 10);
+            } else {
+                //ノーマル
+                console.log("抜けた");
+                hair.tl.clear();
+                hair.image = game.assets["images/hair.png"];
+                hair.x = (gameScene.width - hair.width) / 2;
+                hair.y = 270;
+                hair.tl.scaleTo(1, 0, 1);
+                hair.tl.scaleTo(1, 1, 10);
+            }
         }
         nuitaFlg = false;
     });
@@ -337,4 +356,21 @@ function cutin(gameScene, meijin, item) {
     face.x = 0;
     face.y = 100;
     cutinGroup.addChild(face);
+}
+
+
+function comboAnim(scene) {
+    var comboImg = new Sprite(628, 136);
+    comboImg.image = game.assets["images/umiheicombo.png"];
+    comboImg.tl.scaleTo(0.7, 0.7, 1);
+    comboImg.tl.scaleTo(1, 1, 20);
+    comboImg.tl.fadeTo(0, 20)
+    comboImg.x = (scene.width - comboImg.width) / 2;
+    comboImg.y = 170;
+    scene.addChild(comboImg);
+
+}
+
+function getRandom(start, end) {
+    return start + Math.floor(Math.random() * (end - start + 1));
 }
