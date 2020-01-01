@@ -20,6 +20,10 @@ game.preload('sounds/ok.mp3');
 game.preload('sounds/miss.mp3');
 game.preload('sounds/unplug.mp3');
 game.preload('sounds/combo.mp3');
+game.preload('images/house.png');
+game.preload('images/bakamon.png');
+game.preload('sounds/gameover.mp3');
+game.preload('sounds/back.mp3');
 
 
 //ゲームスタート
@@ -87,6 +91,8 @@ function startGameScene(tap) {
     //得点
     var count = 0;
     var combo = 1;
+    var gameoverFlg = false;
+    var anger = 1;
 
     //シーン作成
     var gameScene = new Scene();
@@ -121,7 +127,7 @@ function startGameScene(tap) {
     finger.tl.hide();
     gameScene.addChild(finger);
 
-    //インジケーターのラベル
+    //得点ラベル
     var label = new Label();
     label.width = 600;
     label.height = 40;
@@ -150,6 +156,11 @@ function startGameScene(tap) {
         afterY = e.y;
         var scale = 1;
 
+        anger = getRandom(0, 200);
+        if (anger == 0) {
+            gameOverScene(count);
+        }
+
         //抜ける前
         if (nuitaFlg == false) {
             scale = ((hair.height + (beforeY - afterY)) / hairHeight);
@@ -172,13 +183,15 @@ function startGameScene(tap) {
 
             if (playingFlg == false) {
                 if (combo == 0) {
-                    count *= 2;
                     comboAnim(gameScene);
+                    count *= 2;
+                    label.text = count + "本抜き";
+                    label.color = "red";
                 } else {
                     count += 1;
+                    label.text = count + "本抜き";
+                    label.color = "black";
                 }
-                label.text = count + "本抜き";
-
                 playingFlg = true;
                 var sound = game.assets['sounds/miss.mp3'].clone();
                 sound.play();
@@ -206,7 +219,7 @@ function startGameScene(tap) {
 
         } else {
             //抜けた
-            combo = getRandom(0, 1);
+            combo = getRandom(0, 200);
             if (combo == 0) {
                 //ツインヘアー
                 hair.tl.clear();
@@ -227,6 +240,101 @@ function startGameScene(tap) {
             }
         }
         nuitaFlg = false;
+    });
+}
+
+//ゲームシーン
+function gameOverScene(count) {
+    //得点
+
+    //シーン作成
+    var gameoverScene = new Scene();
+    game.replaceScene(gameoverScene);
+    gameoverScene.backgroundColor = "white;";
+
+    //背景
+    var background = new Sprite(640, 1136);
+    background.image = game.assets["images/house.png"];
+    background.x = 0;
+    background.y = -380;
+    gameoverScene.addChild(background);
+
+    var sound = game.assets['sounds/gameover.mp3'].clone();
+    sound.play();
+
+
+    // var black = new Sprite(640, 100);
+    // black.backgroundColor = "black";
+    // black.opacity = 0.5
+    // black.x = (gameoverScene.width - black.width) / 2;
+    // black.y = 180;
+    // gameoverScene.addChild(black);
+
+
+    //得点ラベル
+    var label = new Label();
+    label.width = 640;
+    label.height = 40;
+    label.textAlign = "center";
+    label.color = "black";
+    label.text = "今回の得点：" + count + "本抜き";
+    label.font = "30px 'Kosugi Maru'";
+    label.x = 2;
+    label.y = 192;
+    label.dropshadow
+    gameoverScene.addChild(label);
+
+    var label2 = new Label();
+    label2.width = 640;
+    label2.height = 40;
+    label2.textAlign = "center";
+    label2.color = "black";
+    label2.text = "ハイスコア：" + count + "本抜き";
+    label2.font = "30px 'Kosugi Maru'";
+    label2.x = 2;
+    label2.y = 242;
+    gameoverScene.addChild(label2);
+
+    //得点ラベル
+    var label3 = new Label();
+    label3.width = 640;
+    label3.height = 40;
+    label3.textAlign = "center";
+    label3.color = "white";
+    label3.text = "今回の得点：" + count + "本抜き";
+    label3.font = "30px 'Kosugi Maru'";
+    label3.x = 0;
+    label3.y = 190;
+    gameoverScene.addChild(label3);
+
+    var label4 = new Label();
+    label4.width = 640;
+    label4.height = 40;
+    label4.textAlign = "center";
+    label4.color = "white";
+    label4.text = "ハイスコア：" + count + "本抜き";
+    label4.font = "30px 'Kosugi Maru'";
+    label4.x = 0;
+    label4.y = 240;
+    gameoverScene.addChild(label4);
+
+    //ばかもん
+    var bakamon = new Sprite(618, 125);
+    bakamon.image = game.assets["images/bakamon.png"];
+    bakamon.x = (gameoverScene.width - bakamon.width) / 2;
+    bakamon.y = 300;
+    bakamon.tl.scaleTo(0, 0, 1);
+    bakamon.tl.moveTo(0, 30, 30)
+    bakamon.tl.and();
+    bakamon.tl.scaleTo(0.9, 0.9, 30);
+    gameoverScene.addChild(bakamon);
+
+    //戻る
+    gameoverScene.on('touchend', function (e) {
+        var sound = game.assets['sounds/back.mp3'].clone();
+        sound.play();
+        //シーン遷移
+        game.replaceScene(game.rootScene);
     });
 }
 
