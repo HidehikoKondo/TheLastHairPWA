@@ -26,6 +26,15 @@ game.preload('sounds/gameover.mp3');
 game.preload('sounds/back.mp3');
 
 
+//ハイスコア取得
+var highScore = localStorage.getItem("tlh-highscore");
+if (!highScore) {
+    highScore = 0;
+}
+// console.log("HighScore:" + highScore);
+// localStorage.setItem("tlh-highscore", 0);
+
+
 //ゲームスタート
 game.start(); // start your game!
 
@@ -93,13 +102,7 @@ function startGameScene(tap) {
     var anger = 1;
 
 
-    //ハイスコア
-    var highScore = localStorage.getItem("tlh-highscore");
-    if (!highScore) {
-        highScore = 0;
-    }
-    console.log(highScore);
-    localStorage.setItem("tlh-highscore", 100);
+
 
     //シーン作成
     var gameScene = new Scene();
@@ -152,6 +155,9 @@ function startGameScene(tap) {
     var nuitaFlg = false;
     var playingFlg = false;
     gameScene.on('touchstart', function (e) {
+        if (gameoverFlg == true) {
+            return;
+        }
         hair.tl.clear();
         hair.tl.scaleTo(1, 1, 0);
         finger.y = defaultPosY;
@@ -160,11 +166,15 @@ function startGameScene(tap) {
         playingFlg = false;
     });
     gameScene.on('touchmove', function (e) {
+        if (gameoverFlg == true) {
+            return;
+        }
         afterY = e.y;
         var scale = 1;
 
         anger = getRandom(0, 200);
         if (anger == 0) {
+            gameoverFlg = true;
             gameOverScene(count);
         }
 
@@ -208,6 +218,9 @@ function startGameScene(tap) {
     });
 
     gameScene.on('touchend', function (e) {
+        if (gameoverFlg == true) {
+            return;
+        }
         finger.tl.hide();
         if (nuitaFlg == false) {
             //抜けなかった
@@ -266,22 +279,35 @@ function gameOverScene(count) {
 
     playSE('sounds/gameover.mp3');
 
+    //ハイスコア判定
+    var color = "white";
+    var message = "ハイスコア";
+    if (count > highScore) {
+        highScore = count;
+        localStorage.setItem("tlh-highscore", highScore);
+        color = "red";
+        message = "ハイスコア更新！：";
+
+    }
+
     //得点ラベル
-    showScoreLabel(count, "今回の得点：", 0, 192, gameoverScene);
-    showScoreLabel(count, "ハイスコア：", 0, 240, gameoverScene);
+    showScoreLabel(count, "今回の得点：", 0, 192, gameoverScene, "white");
+    showScoreLabel(highScore, message, 0, 240, gameoverScene, color);
 
     //ばかもん
     var bakamon = new Sprite(618, 125);
     bakamon.image = game.assets["images/bakamon.png"];
     bakamon.x = (gameoverScene.width - bakamon.width) / 2;
     bakamon.y = 300;
-    bakamon.tl.scaleTo(0, 0, 1);
-    bakamon.tl.moveTo(0, 30, 60)
-    bakamon.tl.and();
-    bakamon.tl.scaleTo(0.9, 0.9, 60);
     gameoverScene.addChild(bakamon);
+    bakamon.tl.scaleTo(0, 0, 1);
+    bakamon.tl.moveTo(0, 30, 30)
+    bakamon.tl.and();
+    bakamon.tl.scaleTo(0.9, 0.9, 30);
+
 
     //戻る
+    bakamon.tl.delay(120);
     bakamon.tl.then(function (e) {
         gameoverScene.on('touchend', function (e) {
             playSE('sounds/back.mp3');
@@ -292,7 +318,7 @@ function gameOverScene(count) {
 
 }
 
-function showScoreLabel(score, message, x, y, scene) {
+function showScoreLabel(score, message, x, y, scene, color) {
     var label = new Label();
     label.width = 640;
     label.height = 40;
@@ -308,7 +334,7 @@ function showScoreLabel(score, message, x, y, scene) {
     label2.width = 640;
     label2.height = 40;
     label2.textAlign = "center";
-    label2.color = "white";
+    label2.color = color;
     label2.text = message + score + "本抜き";
     label2.font = "30px 'Kosugi Maru'";
     label2.x = x;
