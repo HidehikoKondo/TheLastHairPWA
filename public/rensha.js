@@ -19,7 +19,7 @@ game.preload('images/umiheicombo.png');
 game.preload('sounds/ok.mp3');
 game.preload('sounds/miss.mp3');
 game.preload('sounds/unplug.mp3');
-
+game.preload('sounds/combo.mp3');
 
 
 //ゲームスタート
@@ -360,6 +360,9 @@ function cutin(gameScene, meijin, item) {
 
 
 function comboAnim(scene) {
+    var sound = game.assets['sounds/combo.mp3'].clone();
+    sound.play();
+
     var comboImg = new Sprite(628, 136);
     comboImg.image = game.assets["images/umiheicombo.png"];
     comboImg.tl.scaleTo(0.7, 0.7, 1);
