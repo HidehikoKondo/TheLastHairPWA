@@ -31,7 +31,12 @@
 
 
     <style>
+        html {
+            overflow: hidden;
+        }
+
         body {
+            overflow: hidden;
             margin: 0;
             padding: 0;
 
@@ -65,6 +70,12 @@
     </style>
     <script>
         $(document).ready(function () {
+            //スクロール禁止
+            $(window).on('touchmove.noScroll', function (e) {
+                e.preventDefault();
+            });
+
+
             var w = window.innerWidth;
             var h = window.innerHeight;
             var size = 0;
@@ -92,10 +103,11 @@
 
 <body>
     <iframe src="game.html" id="frame"></iframe>
-    <div id="ad-top" onclick="closeAd();">
+    <div id="ad-top">
         <table id="ad-table">
             <tr>
-                <td>
+                <td align="right" valign="top">
+                    <button onclick="closeAd();" style="margin:10px; width:44px; height:44px;">×</button>
                     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                     <!-- ハゲ親父断髪式WEB-TOP -->
                     <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3324877759270339"
