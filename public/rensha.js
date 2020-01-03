@@ -43,6 +43,9 @@ game.onload = function () {
     startTitleScene();
 };
 
+
+
+
 //タイトル
 function startTitleScene() {
     var title = new Sprite(614, 135);
@@ -65,7 +68,11 @@ function startTitleScene() {
             //シーン遷移
             startGameScene(16);
         });
+        console.log("xxx");
+        showAd();
+
     });
+
 
     var ranking = new Sprite(428, 105);
     ranking.image = game.assets["images/rankbutton.png"];
@@ -269,6 +276,8 @@ function gameOverScene(count) {
     var gameoverScene = new Scene();
     game.replaceScene(gameoverScene);
     gameoverScene.backgroundColor = "white;";
+
+    showAdGameOver();
 
     //背景
     var background = new Sprite(640, 1136);

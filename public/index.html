@@ -3,6 +3,7 @@
 
 <head>
     <title>ハゲ親父断髪式</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
 
     <!-- android -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -27,24 +28,19 @@
     <meta name="twitter:player:height" content="360">
     <meta name="twitter:player:width" content="360">
     <meta name="twitter:image" content="https://www.udonko.net/rensha/images/ogp-rensha.png">
-
-
-
     <style>
         html {
-            overflow: hidden;
+            /* overflow: hidden; */
         }
 
         body {
-            overflow: hidden;
+            /* overflow: hidden; */
             margin: 0;
             padding: 0;
-
             position: relative;
             left: 0px;
             top: 0px;
         }
-
 
         #frame {
             border: none;
@@ -53,104 +49,86 @@
             margin-right: auto;
             margin-top: 0;
             margin-bottom: 0;
+            max-width: 800px;
+            max-height: 800px;
+
+            position: relative;
+            z-index: 1;
         }
 
         #ad-top {
-            margin-top: 0;
-            margin-bottom: 0;
-            margin-right: auto;
-            margin-left: auto;
-
-            position: absolute;
             background-color: rgba(0, 0, 0, 0.4);
-            padding: 0px;
-            left: 0px;
-            top: 0px;
+            position: relative;
+            z-index: 2;
         }
 
-        #ad-table td {}
+        #ad-bottom {
+            background-color: rgba(0, 0, 0, 0.4);
+            position: relative;
+            z-index: 3;
+        }
 
         #ad1 {
-            margin-top: -100px;
-            background-color: red;
+            background-color: rgba(255, 0, 0, 0);
         }
 
         #ad2 {
-            background-color: royalblue;
+            background-color: rgba(0, 0, 255, 0);
+            ;
+        }
+
+        button {
+            margin: 0px;
+        }
+
+        .btn-push {
+            display: inline-block;
+            max-width: 180px;
+            text-align: left;
+            background-color: #ffa300;
+            font-size: 16px;
+            color: #FFF;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 24px;
+            border-radius: 4px;
+            border-bottom: 4px solid #d37800;
+        }
+
+        .btn-push:active {
+            transform: translateY(4px);
+            border-bottom: none;
         }
     </style>
-    <script>
-        $(document).ready(function () {
-            //スクロール禁止
-            $(window).on('touchmove.noScroll', function (e) {
-                e.preventDefault();
-            });
 
+    <script type="text/javascript" src="script.js"></script>
 
-            var w = window.innerWidth;
-            var h = window.innerHeight;
-            var size = 0;
-            if (w > h) {
-                size = h;
-            } else {
-                size = w;
-            }
-            $("#frame").width(size);
-            $("#frame").height(size);
-            $("#ad-top").width(size);
-            $("#ad-top").height(size);
-            $("#ad-top").css("left", ((w - size) / 2) + "px");
-
-            $("#ad-table").width(size);
-            $("#ad-table").height(size);
-        });
-
-        $(window).resize(function () {
-            console.log("resize");
-            var width = $("#ad-top").width();
-            var height = $("#ad-top").height();
-            console.log(width - height);
-            $("#ad-top").css("left", ($(window).width() - width) / 2 + "px");
-        });
-    </script>
-    <script>
-        function closeAd() {
-            $("#ad-top").hide();
-        };
-    </script>
 </head>
 
 <body>
     <iframe src="game.html" id="frame"></iframe>
+
     <div id="ad-top">
-        <table id="ad-table">
-            <tr>
-                <td height="20" align="right">
-                    <button onclick="closeAd();" style="margin:10px; width:100px; height:100px;">×</button>
-                </td>
-            </tr>
-            <tr>
-                <td align="center" valign="middle">
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                    <!-- ハゲ親父断髪式WEB-TOP -->
-                    <ins id="ad1" class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3324877759270339"
-                        data-ad-slot="3671704788" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                    <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
-                </td>
-            </tr>
-        </table>
+        <button class="btn-push" onclick="closeAd();">広告を閉じる</button>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- ハゲ親父断髪式WEB-TOP -->
+        <ins id="ad1" class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3324877759270339"
+            data-ad-slot="3671704788" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
     </div>
 
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <!-- ハゲ親父断髪式WEB-Bottom -->
-    <ins id="ad2" class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3324877759270339"
-        data-ad-slot="3759975327" data-ad-format="auto" data-full-width-responsive="true"></ins>
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-
+    <div id="ad-bottom">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- ハゲ親父断髪式WEB-Bottom -->
+        <ins id="ad2" class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3324877759270339"
+            data-ad-slot="3759975327" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+        <button class="btn-push" onclick="showAd();">広告を開く</button>
+    </div>
 </body>
 
 
