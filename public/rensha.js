@@ -219,7 +219,10 @@ function startGameScene(tap) {
                 playingFlg = true;
                 playSE('sounds/miss.mp3');
             }
-
+            //カンスト
+            if (count > 5000000000000000) {
+                count = 5000000000000000;
+            }
         }
         hair.tl.scaleTo(1, scale, 0);
     });
@@ -270,14 +273,24 @@ function startGameScene(tap) {
 
 //ゲームシーン
 function gameOverScene(count) {
-    //得点
-
     //シーン作成
     var gameoverScene = new Scene();
     game.replaceScene(gameoverScene);
     gameoverScene.backgroundColor = "white;";
 
-    showAdGameOver();
+    gameoverScene.tl.delay(60);
+    gameoverScene.tl.then(function () {
+        //広告 プレイ回数に応じてゲームオーバー時に表示
+        var playCount = localStorage.getItem("tlh-playcount");
+        if (!playCount) {
+            playCount = 0;
+        }
+        playCount++;
+        localStorage.setItem("tlh-playcount", playCount);
+        if (playCount % 10 == 0) {
+            showAdGameOver();
+        }
+    });
 
     //背景
     var background = new Sprite(640, 1136);
