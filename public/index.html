@@ -14,12 +14,12 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
-    <meta property="og:title" content="ハゲ親父断髪式 -あの最後の1本をひっこぬけ！-" />
-    <meta property="og:site_name" content="ハゲ親父断髪式 -あの最後の1本をひっこぬけ！-" />
+    <meta property="og:title" content="ハゲ親父断髪式 -最後の1本をひっこぬけ！-" />
+    <meta property="og:site_name" content="ハゲ親父断髪式 -最後の1本をひっこぬけ！-" />
     <meta property="og:type" content="website" />
     <meta property="og:description" content="クリックしてプレイ！" />
     <meta property="og:url" content="https://hair.udonko.net/index.html" />
-    <meta property="og:image" content="https://www.udonko.net/rensha/images/ogp-rensha.png" />
+    <meta property="og:image" content="https://hair.udonko.net/images/icon512.png" />
 
     <!--Twitter Card-->
     <meta name="twitter:card" content="player">
@@ -27,7 +27,7 @@
     <meta name="twitter:player" content="https://hair.udonko.net/index.html">
     <meta name="twitter:player:height" content="360">
     <meta name="twitter:player:width" content="360">
-    <meta name="twitter:image" content="https://www.udonko.net/rensha/images/ogp-rensha.png">
+    <meta name="twitter:image" content="https://hair.udonko.net/images/icon512.png">
     <style>
         html {
             /* overflow: hidden; */
@@ -101,6 +101,17 @@
         }
     </style>
 
+    <!-- Service Worker -->
+    <link rel="manifest" href="manifest.json">
+    <script>
+        window.addEventListener('load', function () {
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register("sw.js");
+            }
+        });
+    </script>
+
+    <!-- script -->
     <script type="text/javascript" src="script.js"></script>
 
 </head>
