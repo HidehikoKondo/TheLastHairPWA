@@ -35,9 +35,6 @@ var highScore = localStorage.getItem("tlh-highscore");
 if (!highScore) {
     highScore = 0;
 }
-// console.log("HighScore:" + highScore);
-// localStorage.setItem("tlh-highscore", 0);
-
 
 //ゲームスタート
 game.start(); // start your game!
@@ -46,8 +43,6 @@ game.start(); // start your game!
 game.onload = function () {
     startTitleScene();
 };
-
-
 
 
 //タイトル
@@ -76,7 +71,6 @@ function startTitleScene() {
         showAd();
 
     });
-
 
     // var ranking = new Sprite(428, 105);
     // ranking.image = game.assets["images/rankbutton.png"];
@@ -128,9 +122,6 @@ function startGameScene(tap) {
     var gameoverFlg = false;
     var anger = 1;
 
-
-
-
     //シーン作成
     var gameScene = new Scene();
     game.replaceScene(gameScene);
@@ -141,7 +132,6 @@ function startGameScene(tap) {
     oyaji.image = game.assets["images/hageoyaji.png"];
     oyaji.x = (gameScene.width - oyaji.width) / 2;;
     oyaji.y = 140;
-
     gameScene.addChild(oyaji);
 
     //髪の毛
@@ -166,7 +156,6 @@ function startGameScene(tap) {
     swipe.tl.and();
     swipe.tl.fadeTo(1, 1);
     swipe.tl.loop();
-
 
     //怒り
     var ikaru = new Sprite(71, 95);
@@ -216,8 +205,6 @@ function startGameScene(tap) {
     var playingFlg = false;
     gameScene.on('touchstart', function (e) {
         swipe.remove();
-
-
 
         if (gameoverFlg == true) {
             return;
