@@ -12,7 +12,7 @@ game.preload('images/startbutton.png');
 game.preload('images/rankbutton.png');
 game.preload('sounds/start.mp3');
 game.preload('images/finger.png');
-game.preload('images/namiheihead.png');
+game.preload('images/hageoyaji.png');
 game.preload('images/hair.png');
 game.preload('images/hairtwin.png');
 game.preload('images/umiheicombo.png');
@@ -24,7 +24,9 @@ game.preload('images/house.png');
 game.preload('images/bakamon.png');
 game.preload('sounds/gameover.mp3');
 game.preload('sounds/back.mp3');
+game.preload('sounds/Explosion99.mp3');
 game.preload('images/tweetbutton.png');
+game.preload('images/anger.png');
 
 
 //ハイスコア取得
@@ -134,11 +136,11 @@ function startGameScene(tap) {
     gameScene.backgroundColor = "skyblue";
 
     //ハゲ親父
-    var oyaji = new Sprite(640, 1136);
-    oyaji.image = game.assets["images/namiheihead.png"];
-    oyaji.x = 0;
-    oyaji.y = -140;
-    oyaji.tl.scaleTo(0.5, 0);
+    var oyaji = new Sprite(320, 568);
+    oyaji.image = game.assets["images/hageoyaji.png"];
+    oyaji.x = (gameScene.width - oyaji.width) / 2;;
+    oyaji.y = 140;
+
     gameScene.addChild(oyaji);
 
     //髪の毛
@@ -149,6 +151,25 @@ function startGameScene(tap) {
     var hairHeight = hair.height
     hair.originY = hairHeight;
     gameScene.addChild(hair);
+
+    //怒り
+    var ikaru = new Sprite(71, 95);
+    ikaru.image = game.assets["images/anger.png"];
+    ikaru.x = oyaji.x + 200;
+    ikaru.y = oyaji.y + 130;
+    ikaru.tl.fadeTo(0, 1);
+    gameScene.addChild(ikaru);
+
+    var ikari = 1;
+    ikaru.on('enterframe', function (e) {
+        ikari = getRandom(0, 600);
+        console.log(ikari);
+        if (ikari == 0) {
+            ikaru.tl.fadeTo(1, 1);
+            ikaru.tl.fadeTo(0, 60);
+            playSE('sounds/Explosion99.mp3');
+        }
+    });
 
     //指
     var defaultPosY = 0;
@@ -199,7 +220,13 @@ function startGameScene(tap) {
         anger = getRandom(0, 200);
         if (anger == 0) {
             gameoverFlg = true;
-            gameOverScene(count);
+
+            ikaru.tl.fadeTo(1, 1);
+            playSE('sounds/Explosion99.mp3');
+            gameScene.tl.delay(30);
+            gameScene.tl.then(function () {
+                gameOverScene(count);
+            });
         }
 
         //抜ける前
