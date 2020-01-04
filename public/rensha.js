@@ -15,7 +15,7 @@ game.preload('images/finger.png');
 game.preload('images/hageoyaji.png');
 game.preload('images/hair.png');
 game.preload('images/hairtwin.png');
-game.preload('images/umiheicombo.png');
+game.preload('images/combo.png');
 game.preload('sounds/ok.mp3');
 game.preload('sounds/miss.mp3');
 game.preload('sounds/unplug.mp3');
@@ -347,7 +347,7 @@ function gameOverScene(count) {
 
     //ハイスコア判定
     var color = "white";
-    var message = "ハイスコア";
+    var message = "ハイスコア：";
     if (count > highScore) {
         highScore = count;
         localStorage.setItem("tlh-highscore", highScore);
@@ -417,7 +417,7 @@ function comboAnim(scene) {
     playSE('sounds/combo.mp3');
 
     var comboImg = new Sprite(628, 136);
-    comboImg.image = game.assets["images/umiheicombo.png"];
+    comboImg.image = game.assets["images/combo.png"];
     comboImg.tl.scaleTo(0.7, 0.7, 1);
     comboImg.tl.scaleTo(1, 1, 20);
     comboImg.tl.fadeTo(0, 20)
