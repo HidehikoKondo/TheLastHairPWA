@@ -24,6 +24,7 @@ game.preload('images/house.png');
 game.preload('images/bakamon.png');
 game.preload('sounds/gameover.mp3');
 game.preload('sounds/back.mp3');
+game.preload('images/tweetbutton.png');
 
 
 //ハイスコア取得
@@ -74,17 +75,33 @@ function startTitleScene() {
     });
 
 
-    var ranking = new Sprite(428, 105);
-    ranking.image = game.assets["images/rankbutton.png"];
-    ranking.x = (game.rootScene.width - ranking.width) / 2;
-    ranking.y = (start.y + start.height) + 20;
-    ranking.tl.scaleTo(0.6, 0);
-    game.rootScene.addChild(ranking);
-    ranking.on('touchstart', function (e) {
-        playSE('sounds/start.mp3');
+    // var ranking = new Sprite(428, 105);
+    // ranking.image = game.assets["images/rankbutton.png"];
+    // ranking.x = (game.rootScene.width - ranking.width) / 2;
+    // ranking.y = (start.y + start.height) + 20;
+    // ranking.tl.scaleTo(0.6, 0);
+    // game.rootScene.addChild(ranking);
+    // ranking.on('touchstart', function (e) {
+    //     playSE('sounds/start.mp3');
+    //     this.tl.scaleTo(0.7, 0.7, 3);
+    //     this.tl.delay(8);
+    //     alert("工事中");
+    // });
+
+    var twitter = new Sprite(148, 148);
+    twitter.image = game.assets["images/tweetbutton.png"];
+    twitter.x = (game.rootScene.width - twitter.width) / 2;
+    twitter.y = (start.y + start.height) + 20;
+    twitter.tl.scaleTo(0.6, 0);
+    game.rootScene.addChild(twitter);
+    twitter.on('touchstart', function (e) {
+        playSE('sounds/ok.mp3');
         this.tl.scaleTo(0.7, 0.7, 3);
         this.tl.delay(8);
-        alert("工事中");
+        open("https://twitter.com/intent/tweet?text=ハゲ親父断髪式　ハイスコアチャレンジ！%0d最高記録：" + highScore + "本抜き%0d%0d" +
+            "&hashtags=ハゲ親父断髪式ハイスコアチャレンジ" +
+            "&url=https://hair.udonko.net/"
+            , "_blank");
     });
 
     //インジケーターのラベル
