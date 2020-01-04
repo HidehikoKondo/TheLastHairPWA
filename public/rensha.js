@@ -27,6 +27,7 @@ game.preload('sounds/back.mp3');
 game.preload('sounds/Explosion99.mp3');
 game.preload('images/tweetbutton.png');
 game.preload('images/anger.png');
+game.preload('images/swipe.png');
 
 
 //ハイスコア取得
@@ -112,7 +113,7 @@ function startTitleScene() {
     copyright.textAlign = "center";
     copyright.color = "#fff";
     copyright.text = "UDONKONET";
-    copyright.font = "20px 'impact'";
+    copyright.font = "20px 'Kosugi Maru'";
     copyright.x = (game.rootScene.width - copyright.width) / 2;
     copyright.y = (game.rootScene.height - 30);
     game.rootScene.addChild(copyright);
@@ -152,6 +153,21 @@ function startGameScene(tap) {
     hair.originY = hairHeight;
     gameScene.addChild(hair);
 
+    //スワイプ
+    var swipe = new Sprite(443, 196);
+    swipe.image = game.assets["images/swipe.png"];
+    swipe.x = (gameScene.width - swipe.width) / 2;
+    swipe.y = 50;
+    gameScene.addChild(swipe);
+    swipe.tl.moveBy(0, -30, 60);
+    swipe.tl.and();
+    swipe.tl.fadeTo(0, 60);
+    swipe.tl.moveBy(0, 30, 1);
+    swipe.tl.and();
+    swipe.tl.fadeTo(1, 1);
+    swipe.tl.loop();
+
+
     //怒り
     var ikaru = new Sprite(71, 95);
     ikaru.image = game.assets["images/anger.png"];
@@ -163,7 +179,6 @@ function startGameScene(tap) {
     var ikari = 1;
     ikaru.on('enterframe', function (e) {
         ikari = getRandom(0, 600);
-        console.log(ikari);
         if (ikari == 0) {
             ikaru.tl.fadeTo(1, 1);
             ikaru.tl.fadeTo(0, 60);
@@ -200,6 +215,10 @@ function startGameScene(tap) {
     var nuitaFlg = false;
     var playingFlg = false;
     gameScene.on('touchstart', function (e) {
+        swipe.remove();
+
+
+
         if (gameoverFlg == true) {
             return;
         }
@@ -375,6 +394,17 @@ function gameOverScene(count) {
     //戻る
     bakamon.tl.delay(120);
     bakamon.tl.then(function (e) {
+        var label2 = new Label();
+        label2.width = 640;
+        label2.height = 40;
+        label2.textAlign = "center";
+        label2.color = "white";
+        label2.text = "タップしてもどる";
+        label2.font = "20px 'Kosugi Maru'";
+        label2.x = 0;
+        label2.y = 450;
+        gameoverScene.addChild(label2);
+
         gameoverScene.on('touchend', function (e) {
             playSE('sounds/back.mp3');
             //シーン遷移
