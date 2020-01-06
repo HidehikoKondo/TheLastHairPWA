@@ -223,7 +223,7 @@ function startGameScene(tap) {
         afterY = e.y;
         var scale = 1;
 
-        anger = getRandom(0, 200);
+        anger = getRandom(0, 300);
         if (anger == 0) {
             gameoverFlg = true;
 
@@ -297,7 +297,7 @@ function startGameScene(tap) {
 
         } else {
             //抜けた
-            combo = getRandom(0, 200);
+            combo = getRandom(0, 150);
             if (combo == 0) {
                 //ツインヘアー
                 hair.tl.clear();
