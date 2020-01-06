@@ -98,7 +98,7 @@ function startTitleScene() {
         open("https://twitter.com/intent/tweet?text=ハゲ親父断髪式　ハイスコアチャレンジ！%0d最高記録：" + highScore + "本抜き%0d%0d" +
             "&hashtags=ハゲ親父断髪式ハイスコアチャレンジ" +
             "&url=https://hair.udonko.net/"
-            , "_blank");
+            , "_parent");
     });
 
     //インジケーターのラベル
