@@ -1,7 +1,7 @@
 //初期化
 enchant();
 //ゲーム画面
-var game = new Core(640, 640);
+var game = new Core(640, 1136);
 //FPS
 game.fps = 60;
 //背景色
@@ -50,13 +50,13 @@ function startTitleScene() {
     var title = new Sprite(614, 135);
     title.image = game.assets["images/title.png"];
     title.x = (game.rootScene.width - title.width) / 2;
-    title.y = 100;
+    title.y = 300;
     game.rootScene.addChild(title);
 
     var start = new Sprite(294, 90);
     start.image = game.assets["images/startbutton.png"];
     start.x = (game.rootScene.width - start.width) / 2;
-    start.y = (title.y + title.height) + 50;
+    start.y = (title.y + title.height) + 100;
     start.tl.scaleTo(0.8, 0);
     game.rootScene.addChild(start);
     start.on('touchstart', function (e) {
@@ -67,7 +67,6 @@ function startTitleScene() {
             //シーン遷移
             startGameScene(16);
         });
-        console.log("xxx");
         showAd();
 
     });
@@ -88,7 +87,7 @@ function startTitleScene() {
     var twitter = new Sprite(148, 148);
     twitter.image = game.assets["images/tweetbutton.png"];
     twitter.x = (game.rootScene.width - twitter.width) / 2;
-    twitter.y = (start.y + start.height) + 20;
+    twitter.y = (start.y + start.height) + 70;
     twitter.tl.scaleTo(0.6, 0);
     game.rootScene.addChild(twitter);
     twitter.on('touchstart', function (e) {
@@ -131,14 +130,14 @@ function startGameScene(tap) {
     var oyaji = new Sprite(320, 568);
     oyaji.image = game.assets["images/hageoyaji.png"];
     oyaji.x = (gameScene.width - oyaji.width) / 2;;
-    oyaji.y = 140;
+    oyaji.y = gameScene.height - oyaji.height;
     gameScene.addChild(oyaji);
 
     //髪の毛
     var hair = new Sprite(25, 80);
     hair.image = game.assets["images/hair.png"];
     hair.x = (gameScene.width - hair.width) / 2;
-    hair.y = 270;
+    hair.y = oyaji.height + 120;
     var hairHeight = hair.height
     hair.originY = hairHeight;
     gameScene.addChild(hair);
@@ -176,7 +175,7 @@ function startGameScene(tap) {
     });
 
     //指
-    var defaultPosY = 0;
+    var defaultPosY = 400;
     var defaultPosX = 15;
     var finger = new Sprite(612, 350);
     finger.image = game.assets["images/finger.png"];
@@ -195,7 +194,7 @@ function startGameScene(tap) {
     label.text = "0本抜き";
     label.font = "40px 'Kosugi Maru'";
     label.x = 20;
-    label.y = 20;
+    label.y = 70;
     gameScene.addChild(label);
 
     //タッチイベントで髪の毛を伸び縮み
@@ -286,7 +285,7 @@ function startGameScene(tap) {
             //抜けなかった
             playSE('sounds/unplug.mp3');
             hair.x = (gameScene.width - hair.width) / 2;
-            hair.y = 270;
+            hair.y = oyaji.y + 120;
             hair.tl.scaleTo(1, 1, 4);
             hair.tl.scaleTo(1, 0.7, 4);
             hair.tl.scaleTo(1, 1, 4);
@@ -303,7 +302,7 @@ function startGameScene(tap) {
                 hair.tl.clear();
                 hair.image = game.assets["images/hairtwin.png"];
                 hair.x = (gameScene.width - hair.width) / 2;
-                hair.y = 270;
+                hair.y = oyaji.y + 120;
                 hair.tl.scaleTo(1, 0, 1);
                 hair.tl.scaleTo(1, 1, 10);
             } else {
@@ -312,7 +311,7 @@ function startGameScene(tap) {
                 hair.tl.clear();
                 hair.image = game.assets["images/hair.png"];
                 hair.x = (gameScene.width - hair.width) / 2;
-                hair.y = 270;
+                hair.y = oyaji.y + 120;
                 hair.tl.scaleTo(1, 0, 1);
                 hair.tl.scaleTo(1, 1, 10);
             }
@@ -346,7 +345,7 @@ function gameOverScene(count) {
     var background = new Sprite(640, 1136);
     background.image = game.assets["images/house.png"];
     background.x = 0;
-    background.y = -380;
+    background.y = 0;
     gameoverScene.addChild(background);
 
     playSE('sounds/gameover.mp3');
@@ -363,17 +362,17 @@ function gameOverScene(count) {
     }
 
     //得点ラベル
-    showScoreLabel(count, "今回の得点：", 0, 192, gameoverScene, "white");
-    showScoreLabel(highScore, message, 0, 240, gameoverScene, color);
+    showScoreLabel(count, "今回の得点：", 0, 392, gameoverScene, "white");
+    showScoreLabel(highScore, message, 0, 440, gameoverScene, color);
 
     //ばかもん
     var bakamon = new Sprite(618, 125);
     bakamon.image = game.assets["images/bakamon.png"];
     bakamon.x = (gameoverScene.width - bakamon.width) / 2;
-    bakamon.y = 300;
+    bakamon.y = 600;
     gameoverScene.addChild(bakamon);
     bakamon.tl.scaleTo(0, 0, 1);
-    bakamon.tl.moveTo(0, 30, 30)
+    bakamon.tl.moveTo(0, 200, 30)
     bakamon.tl.and();
     bakamon.tl.scaleTo(0.9, 0.9, 30);
 
@@ -383,13 +382,13 @@ function gameOverScene(count) {
     bakamon.tl.then(function (e) {
         var label2 = new Label();
         label2.width = 640;
-        label2.height = 40;
+        label2.height = 30;
         label2.textAlign = "center";
         label2.color = "white";
         label2.text = "タップしてもどる";
         label2.font = "20px 'Kosugi Maru'";
         label2.x = 0;
-        label2.y = 450;
+        label2.y = 550;
         gameoverScene.addChild(label2);
 
         gameoverScene.on('touchend', function (e) {

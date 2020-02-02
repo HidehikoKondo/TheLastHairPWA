@@ -5,16 +5,16 @@ $(document).ready(function () {
         e.preventDefault();
     });
 
-    var w = window.innerWidth;
-    var h = window.innerHeight;
-    var size = 0;
-    if (w > h) {
-        size = h;
-    } else {
-        size = w;
-    }
-    $("#frame").width(size);
-    $("#frame").height(size);
+    // var w = window.innerWidth;
+    // var h = window.innerHeight;
+    // var size = 0;
+    // if (w > h) {
+    //     size = h;
+    // } else {
+    //     size = w;
+    // }
+    // $("#frame").width(size);
+    // $("#frame").height(size);
 
     closeAd();
 });
