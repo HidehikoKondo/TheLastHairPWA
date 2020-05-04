@@ -1,0 +1,11 @@
+aabinstall.batでリリースビルドした.abbを端末にインストールする。
+
+↓が端末にインストールされる
+C:\Users\udonk\Documents\Bitbucket\TheLastHairWeb\PWA\svgomg-twa-master\svgomg-twa-master\app\release\app-release.abb
+
+こうすることでタイトルバーなしで表示ができる。
+サーバーにアップロードしたDigital asset linksに設定したkeystoreの情報と一致させる必要があるためにこうする。
+
+で、bundletool-all-0.14.0.jarとaabInstall.batはDownloadsフォルダに配置してある想定でパスが通してある。
+違う場所で実行するときはこのaabinstall.batを編集してパスを治してね。
+注意：パスを通すとき c:\って書くと:が使えないらしいので、相対パスで書いてね。

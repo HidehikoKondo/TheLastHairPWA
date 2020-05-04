@@ -23,8 +23,8 @@ def twaManifest = [
     hostName: 'hair.udonko.net', // The domain being opened in the TWA.
     launchUrl: '/', // The start path for the TWA. Must be relative to the domain.
     name: 'ハゲ親父断髪式', // The name shown on the Android Launcher.
-    themeColor: '#303F9F', // The color used for the status bar.
-    navigationColor: '#303F9F', // The color used for the navigation bar.
+    themeColor: '#000000', // The color used for the status bar.
+    navigationColor: '#000000', // The color used for the navigation bar.
     backgroundColor: '#bababa', // The color used for the splash screen background.
     enableNotifications: false, // Set to true to enable notification delegation.
     // Add shortcuts for your app here. Every shortcut must include the following fields:
@@ -41,6 +41,14 @@ def twaManifest = [
 ]
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('C:\\Users\\udonk\\Documents\\Bitbucket\\TheLastHairWeb\\PWA\\keystore.jks')
+            storePassword 'Iamin758'
+            keyAlias = 'key0'
+            keyPassword 'Iamin758'
+        }
+    }
     compileSdkVersion 29
     defaultConfig {
         applicationId twaManifest.applicationId
