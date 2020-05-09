@@ -25,7 +25,7 @@ def twaManifest = [
     name: 'ハゲ親父断髪式', // The name shown on the Android Launcher.
     themeColor: '#000000', // The color used for the status bar.
     navigationColor: '#000000', // The color used for the navigation bar.
-    backgroundColor: '#bababa', // The color used for the splash screen background.
+    backgroundColor: '#ffffff', // The color used for the splash screen background.
     enableNotifications: false, // Set to true to enable notification delegation.
     // Add shortcuts for your app here. Every shortcut must include the following fields:
     // - name: String that will show up in the shortcut.
