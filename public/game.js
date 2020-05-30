@@ -1,7 +1,10 @@
 //初期化
 enchant();
 //ゲーム画面
+var screenWidth = window.innerWidth;
+var screenHeight = window.innerHeight;
 var game = new Core(640, 1136);
+
 //FPS
 game.fps = 60;
 //背景色
@@ -67,8 +70,6 @@ function startTitleScene() {
             //シーン遷移
             startGameScene(16);
         });
-        showAd();
-
     });
 
     // var ranking = new Sprite(428, 105);
@@ -336,8 +337,10 @@ function gameOverScene(count) {
         }
         playCount++;
         localStorage.setItem("tlh-playcount", playCount);
-        if (playCount % 10 == 0) {
+        if (playCount % 1 == 0) {
             showAdGameOver();
+            var frame = window.parent;
+            $(frame).scrollTop(10000);
         }
     });
 

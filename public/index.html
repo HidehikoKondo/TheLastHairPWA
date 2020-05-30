@@ -50,10 +50,9 @@
     <!-- Initialize Firebase -->
     <script src="/__/firebase/init.js"></script>
 
-
     <style>
         html {
-            /* overflow: hidden; */
+            scroll-behavior: smooth;
         }
 
         body {
@@ -68,16 +67,12 @@
         #frame {
             border: none;
             display: block;
-            margin-left: auto;
-            margin-right: auto;
+            margin-left: 0;
+            margin-right: 0;
             margin-top: 0;
             margin-bottom: 0;
-            min-width: 320px;
-            min-height: 568px;
-            max-width: 640px;
-            max-height: 1136px;
-
             position: relative;
+            /* background-color: red; */
             z-index: 1;
         }
 
@@ -103,7 +98,9 @@
         }
 
         button {
-            margin: 0px;
+            width: 100%;
+            height: 80px;
+            font-size: 20px;
         }
 
         .btn-push {
@@ -139,17 +136,6 @@
 <body>
     <iframe src="game.html" id="frame"></iframe>
 
-    <div id="ad-top">
-        <button class="btn-push" onclick="closeAd();">広告を閉じる</button>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <!-- ハゲ親父断髪式WEB-TOP -->
-        <ins id="ad1" class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3324877759270339"
-            data-ad-slot="3671704788" data-ad-format="auto" data-full-width-responsive="true"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
-
     <div id="ad-bottom">
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         <!-- ハゲ親父断髪式WEB-Bottom -->
@@ -159,6 +145,7 @@
             (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
         <!-- <button class="btn-push" onclick="showAd();">広告を開く</button> -->
+        <button onclick='anchor("#");'>ゲームに戻る</button>
     </div>
 </body>
 
