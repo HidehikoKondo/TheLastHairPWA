@@ -1,9 +1,15 @@
 //初期化
 enchant();
 //ゲーム画面
-var screenWidth = window.innerWidth;
-var screenHeight = window.innerHeight;
-var game = new Core(640, 1136);
+var iframe = window.parent.document.getElementById("frame");
+console.log(iframe.width);
+
+//画面サイズの決定　横幅は640を基準に高さを決める
+var w = 640;
+var h = iframe.scrollHeight * (640 / iframe.scrollWidth);
+var game = new Core(w, h);
+
+
 
 //FPS
 game.fps = 60;
@@ -138,7 +144,7 @@ function startGameScene(tap) {
     var hair = new Sprite(25, 80);
     hair.image = game.assets["images/hair.png"];
     hair.x = (gameScene.width - hair.width) / 2;
-    hair.y = oyaji.height + 120;
+    hair.y = oyaji.y + 120;
     var hairHeight = hair.height
     hair.originY = hairHeight;
     gameScene.addChild(hair);
@@ -147,14 +153,15 @@ function startGameScene(tap) {
     var swipe = new Sprite(443, 196);
     swipe.image = game.assets["images/swipe.png"];
     swipe.x = (gameScene.width - swipe.width) / 2;
-    swipe.y = 50;
+    swipe.y = (gameScene.height - swipe.height) / 2;
+
     gameScene.addChild(swipe);
-    swipe.tl.moveBy(0, -30, 60);
-    swipe.tl.and();
-    swipe.tl.fadeTo(0, 60);
-    swipe.tl.moveBy(0, 30, 1);
-    swipe.tl.and();
-    swipe.tl.fadeTo(1, 1);
+    swipe.tl.moveBy(0, -50, 60);
+    // swipe.tl.and();
+    // swipe.tl.fadeTo(0, 60);
+    swipe.tl.moveBy(0, 50, 1);
+    // swipe.tl.and();
+    // swipe.tl.fadeTo(1, 1);
     swipe.tl.loop();
 
     //怒り
@@ -176,11 +183,11 @@ function startGameScene(tap) {
     });
 
     //指
-    var defaultPosY = 400;
-    var defaultPosX = 15;
+    var defaultPosY = hair.y;
+    var defaultPosX = hair.x;
     var finger = new Sprite(612, 350);
     finger.image = game.assets["images/finger.png"];
-    finger.x = defaultPosX;
+    finger.x = defaultPosX - finger.width / 2 + 15;
     finger.y = defaultPosY;
     finger.tl.scaleTo(0.7, 0);
     finger.tl.hide();
@@ -188,15 +195,17 @@ function startGameScene(tap) {
 
     //得点ラベル
     var label = new Label();
-    label.width = 600;
+    label.width = gameScene.width - 80;
     label.height = 40;
     label.textAlign = "right";
     label.color = "#444444";
     label.text = "0本抜き";
-    label.font = "40px 'Kosugi Maru'";
-    label.x = 20;
-    label.y = 70;
+    label.font = "45px 'Kosugi Maru'";
+    label.x = 45;
+    label.y = 100;
     gameScene.addChild(label);
+
+    var fingerAdjust = 70;
 
     //タッチイベントで髪の毛を伸び縮み
     var beforeY = 0;
@@ -211,7 +220,7 @@ function startGameScene(tap) {
         }
         hair.tl.clear();
         hair.tl.scaleTo(1, 1, 0);
-        finger.y = defaultPosY;
+        finger.y = defaultPosY - finger.height + fingerAdjust;
         beforeY = e.y;
         finger.tl.show();
         playingFlg = false;
@@ -247,12 +256,12 @@ function startGameScene(tap) {
                 } else {
                     nuitaFlg = false;
                 }
-                finger.y = defaultPosY - (beforeY - afterY);
+                finger.y = defaultPosY - finger.height + fingerAdjust - (beforeY - afterY);
             }
         } else {
             //抜けた後
             console.log("抜いた");
-            finger.y = defaultPosY - (beforeY - afterY);
+            finger.y = defaultPosY - finger.height + fingerAdjust - (beforeY - afterY);
             hair.y = finger.y + finger.height - hair.height;
 
             if (playingFlg == false) {
@@ -345,7 +354,7 @@ function gameOverScene(count) {
     });
 
     //背景
-    var background = new Sprite(640, 1136);
+    var background = new Sprite(640, 1500);
     background.image = game.assets["images/house.png"];
     background.x = 0;
     background.y = 0;
