@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <title>ハゲ親父断髪式</title>
+    <meta name="description" content="あの最後の1本の毛を引っこ抜け！ゲームだから許される！？ハゲ親父に見つからないように気をつけろ！">
+    <meta name="Keywords" content="ハゲ親父断髪式,カジュアルゲーム,インディーズゲーム,マッチング,出会い,漫画,マンガ,アニメ" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <!--PWA setting-->
+    <meta name="theme-color" content="#83F1A8">
+
+    <!-- Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="white">
+    <meta name="apple-mobile-web-app-title" content="ハゲ親父断髪式">
+    <link rel="apple-touch-icon" href="images/icon192.png" sizes="192x129">
+    <link rel="apple-touch-icon" href="images/icon256.png" sizes="256x256">
+    <link rel="apple-touch-icon" href="images/icon512.png" sizes="512x512">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+    <meta property="og:title" content="ハゲ親父断髪式 -最後の1本をひっこぬけ！-" />
+    <meta property="og:site_name" content="ハゲ親父断髪式 -最後の1本をひっこぬけ！-" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="クリックしてプレイ！" />
+    <meta property="og:url" content="https://hair.udonko.net/index.html" />
+    <meta property="og:image" content="https://hair.udonko.net/images/icon512.png" />
+
+    <!--Twitter Card-->
+    <meta name="twitter:card" content="player">
+    <meta name="twitter:title" content="ハゲ親父断髪式 -あの最後の1本をひっこぬけ！-">
+    <meta name="twitter:player" content="https://hair.udonko.net/index.html">
+    <meta name="twitter:player:height" content="360">
+    <meta name="twitter:player:width" content="568">
+    <meta name="twitter:image" content="https://hair.udonko.net/images/icon512.png">
+
+    <!-- firebase-->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="/__/firebase/7.6.1/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="/__/firebase/7.6.1/firebase-analytics.js"></script>
+
+    <!-- Initialize Firebase -->
+    <script src="/__/firebase/init.js"></script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            /* overflow: hidden; */
+            margin: 0;
+            padding: 0;
+            position: relative;
+            left: 0px;
+            top: 0px;
+        }
+
+        #frame {
+            border: none;
+            display: block;
+            margin-left: 0;
+            margin-right: 0;
+            margin-top: 0;
+            margin-bottom: 0;
+            position: relative;
+            /* background-color: red; */
+            z-index: 1;
+        }
+
+        #ad-top {
+            background-color: rgba(0, 0, 0, 0.4);
+            position: relative;
+            z-index: 2;
+        }
+
+        #ad-bottom {
+            background-color: rgba(0, 0, 0, 0.4);
+            position: relative;
+            z-index: 3;
+        }
+
+        #ad1 {
+            background-color: rgba(255, 0, 0, 0);
+        }
+
+        #ad2 {
+            background-color: rgba(0, 0, 255, 0);
+            ;
+        }
+
+        button {
+            width: 100%;
+            height: 80px;
+            font-size: 20px;
+        }
+
+        .btn-push {
+            display: inline-block;
+            max-width: 180px;
+            text-align: left;
+            background-color: #ffa300;
+            font-size: 16px;
+            color: #FFF;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 24px;
+            border-radius: 4px;
+            border-bottom: 4px solid #d37800;
+        }
+    </style>
+
+    <!-- Service Worker -->
+    <link rel="manifest" href="manifest.json">
+    <script>
+        window.addEventListener('load', function () {
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register("sw.js");
+            }
+        });
+    </script>
+
+    <!-- script -->
+    <script type="text/javascript" src="script.js"></script>
+
+</head>
+
+<body>
+    <iframe src="game.html" id="frame"></iframe>
+
+    <div id="ad-bottom">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- ハゲ親父断髪式WEB-Bottom -->
+        <ins id="ad2" class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3324877759270339"
+            data-ad-slot="3759975327" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+        <!-- <button class="btn-push" onclick="showAd();">広告を開く</button> -->
+        <button onclick='anchor("#");'>ゲームに戻る</button>
+    </div>
+</body>
+
+
+</html>

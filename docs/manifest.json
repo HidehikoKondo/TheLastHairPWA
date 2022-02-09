@@ -1,0 +1,26 @@
+{
+    "name": "ハゲ親父断髪式",
+    "short_name": "ハゲ親父断髪式",
+    "icons": [
+        {
+            "src": "images/icon256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        },
+        {
+            "src": "images/icon192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "images/icon512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "orientation": "portrait",
+    "start_url": "/",
+    "display": "fullscreen",
+    "theme_color": "#83F1A8",
+    "background_color": "#FFFFFF"
+}

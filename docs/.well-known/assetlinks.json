@@ -1,0 +1,14 @@
+[
+    {
+        "relation": [
+            "delegate_permission/common.handle_all_urls"
+        ],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "net.udonko.TheLastHairPWA",
+            "sha256_cert_fingerprints": [
+                "4D:0D:3C:03:12:59:77:C9:4E:BA:36:BE:7E:CD:04:01:7A:18:8D:DC:43:55:49:76:FA:A5:F2:62:4F:D6:3C:1E"
+            ]
+        }
+    }
+]
